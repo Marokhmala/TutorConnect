@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join TutorConnect - Choose Your Role</title>
+    <style>
+        /* Consistent with homepage color palette */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .back-link {
+            color: var(--gray);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: var(--primary);
+        }
+        
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+        
+        .role-selection {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .role-selection h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .role-selection p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .role-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .role-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+        
+        .role-card.selected {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+        
+        .role-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: var(--primary);
+        }
+        
+        .role-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .role-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .role-features {
+            text-align: left;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .role-features ul {
+            list-style: none;
+        }
+        
+        .role-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .role-features li::before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 16px;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-disabled {
+            background-color: var(--border);
+            color: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        .login-prompt {
+            margin-top: 30px;
+            color: var(--gray);
+        }
+        
+        .login-prompt a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .login-prompt a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 30px 0;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .role-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-selection h1 {
+                font-size: 28px;
+            }
+            
+            .role-selection p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">
+                    <div class="logo-icon">TC</div>
+                    <span>TutorConnect</span>
+                </a>
+                
+                <a href="../index.html" class="back-link">
+                    <span>←</span> Back to Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="role-selection">
+                <h1>Join TutorConnect</h1>
+                <p>Choose how you'd like to use our platform. Your selection will customize your experience.</p>
+                
+                <div class="role-cards">
+                    <div class="role-card" id="student-card">
+                        <div class="role-icon">👨‍🎓</div>
+                        <h3>Student / Parent</h3>
+                        <p>Find verified tutors, track sessions, and ensure learning progress</p>
+                        
+                        <div class="role-features">
+                            <ul>
+                                <li>Browse verified tutors with transparent reviews</li>
+                                <li>AI-powered matching to find your perfect tutor</li>
+                                <li>Secure payment protection with escrow system</li>
+                                <li>Track all sessions and learning progress</li>
+                                <li>Free basic account with optional premium features</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="role-card" id="tutor-card">
+                        <div class="role-icon">👩‍🏫</div>
+                        <h3>Tutor</h3>
+                        <p>Build your tutoring career with verified credentials and reliable payments</p>
+                        
+                        <div class="role-features">
+                            <ul>
+                                <li>Verification badge to build trust with students</li>
+                                <li>Secure and timely payments with escrow protection</li>
+                                <li>Performance dashboard and insights</li>
+                                <li>Flexible scheduling and session management</li>
+                                <li>Grow your reputation with our reliability scoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-disabled" id="continue-btn" disabled>Continue as Student/Parent</button>
+                
+                <div class="login-prompt">
+                    Already have an account? <a href="#">Log in</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="support.html">Support</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+            </div>
+            <div class="copyright">
+                &copy; 2023 TutorConnect. Building Trust in Education.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentCard = document.getElementById('student-card');
+            const tutorCard = document.getElementById('tutor-card');
+            const continueBtn = document.getElementById('continue-btn');
+            
+            let selectedRole = 'student'; // Default selection
+            
+            // Select student card by default
+            studentCard.classList.add('selected');
+            
+            studentCard.addEventListener('click', function() {
+                studentCard.classList.add('selected');
+                tutorCard.classList.remove('selected');
+                selectedRole = 'student';
+                continueBtn.textContent = 'Continue as Student/Parent';
+                continueBtn.disabled = false;
+                continueBtn.classList.remove('btn-disabled');
+                continueBtn.classList.add('btn-primary');
+            });
+            
+            tutorCard.addEventListener('click', function() {
+                tutorCard.classList.add('selected');
+                studentCard.classList.remove('selected');
+                selectedRole = 'tutor';
+                continueBtn.textContent = 'Continue as Tutor';
+                continueBtn.disabled = false;
+                continueBtn.classList.remove('btn-disabled');
+                continueBtn.classList.add('btn-primary');
+            });
+            
+            continueBtn.addEventListener('click', function() {
+                if (selectedRole === 'student') {
+                    window.location.href = 'signup-student.html';
+                } else {
+                    window.location.href = 'signup-tutor.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
